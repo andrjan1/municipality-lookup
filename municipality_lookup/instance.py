@@ -1,4 +1,5 @@
 import importlib.resources
+from importlib.resources import files
 from municipality_lookup import MunicipalityDB
 
 _db_instance = None
@@ -8,7 +9,6 @@ def get_db(csv_path: str = None) -> MunicipalityDB:
     if _db_instance is None:
         if csv_path is None:
             # Load built-in CSV
-            with importlib.resources.path("municipality_lookup.data", "comuni.csv") as p:
-                csv_path = str(p)
-        _db_instance = MunicipalityDB(csv_path)
+            csv_path = files("municipality_lookup.data").joinpath("comuni.csv")
+        _db_instance = MunicipalityDB(str(csv_path))
     return _db_instance
