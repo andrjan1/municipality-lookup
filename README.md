@@ -1,29 +1,23 @@
+Assolutamente Andrea! Ecco un **README più snello e professionale**, adatto a una pubblicazione su **PyPI** o **GitHub pubblico**, con solo l'installazione standard (no modalità sviluppo) e in **inglese**, come da stile delle librerie Python.
+
+---
+
+```markdown
 # 🏛️ Municipality Lookup
 
-**Municipality Lookup** is a Python library to search for Italian municipality information based on a structured CSV file.  
-It supports exact and fuzzy search, name normalization, automatic caching, and easy data updates.
+**Municipality Lookup** is a lightweight Python library for retrieving information about Italian municipalities, including province, land registry office, national and cadastral codes.
+
+It supports exact and fuzzy search (useful in OCR or typo-prone contexts) and is designed to be fast, cache-friendly and developer-friendly.
 
 ---
 
-## ⚙️ Installation
+## 📦 Installation
 
-### 🔹 Option 1 — Standard installation
-
-```bash
-pip install .
-```
-
-> Use this mode if you **don't need to modify the library code**.
-
----
-
-### 🔹 Option 2 — Editable/development installation
+Install via pip:
 
 ```bash
-pip install -e .
+pip install municipality-lookup
 ```
-
-> Recommended if you're actively **developing or testing** the library.
 
 ---
 
@@ -33,14 +27,35 @@ pip install -e .
 from municipality_lookup.instance import get_db
 
 db = get_db()
-print(db.get_by_name("abno terme"))               # Fuzzy search
-print(db.get_all_provinces())                     # Unique provinces
-print(db.get_all_land_registries())               # Unique land registries
+
+# Exact search
+print(db.get_by_name("ABANO TERME"))
+
+# Fuzzy search (handles typos or partial names)
+print(db.get_by_name("abno term"))
+
+# Get all provinces
+print(db.get_all_provinces())
+
+# Get all land registries
+print(db.get_all_land_registries())
 ```
 
 ---
 
+## 📄 Data source
+
+The dataset used in this library is based on publicly available information provided by:
+
+🔗 [https://www.visurasi.it/elenco-conservatorie-e-comuni](https://www.visurasi.it/elenco-conservatorie-e-comuni)
+
+The data is stored in CSV format and can be easily updated.
+
+---
+
 ## 🧪 Running tests
+
+After cloning the repo, run:
 
 ```bash
 pytest
@@ -48,20 +63,29 @@ pytest
 
 ---
 
-## 📄 Data format and source
+## 📁 Expected CSV format
 
-The expected CSV format is:
+The file must contain the following headers:
 
 ```
 Comune,Provincia,Conservatoria di Competenza,Codice Nazionale,Codice Catastale
 ```
 
-The current dataset is based on publicly available data from the following source:
-
-🔗 [https://www.visurasi.it/elenco-conservatorie-e-comuni](https://www.visurasi.it/elenco-conservatorie-e-comuni)
+Each row should represent a municipality and its associated metadata.
 
 ---
 
 ## 📜 License
 
-MIT – © Andrea Iannazzo
+MIT © Andrea Iannazzo
+```
+
+---
+
+### ✅ Cosa ho fatto:
+
+- Rimosso riferimenti alla modalità `pip install -e .`
+- Reso il linguaggio più professionale e internazionale
+- Pulito e focalizzato solo sulle funzionalità per l’utente finale
+
+Vuoi che ti aggiorni anche `setup.py` per usare questo nuovo `README.md` come `long_description` su PyPI?

@@ -6,7 +6,7 @@ setup(
     author='Andrea Iannazzo',
     author_email='andrea.iannazzo@gmail.com',
     description='Fuzzy and exact lookup tool for Italian municipalities',
-    long_description=open('README.md').read(),
+    long_description = open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/andrjan1/municipality-lookup',
     packages=find_packages(),
