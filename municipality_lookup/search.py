@@ -1,4 +1,4 @@
-from difflib import SequenceMatcher
+from rapidfuzz import fuzz
 from typing import Optional
 from municipality_lookup.models import Municipality
 
@@ -16,7 +16,7 @@ class MunicipalitySearcher:
         best_score = 0
 
         for m in self._municipalities:
-            score = SequenceMatcher(None, name, m.name.lower()).ratio()
+            score = (fuzz.ratio(name, m.name.lower()) + fuzz.partial_ratio(name, m.name.lower())) / 2 / 100
             if score > best_score and score >= min_score:
                 best_match = m
                 best_score = score
