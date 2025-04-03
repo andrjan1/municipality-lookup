@@ -18,5 +18,11 @@ def main():
     print("\n🔍 Fuzzy match with typo:")
     print(db.get_by_name("Er- . bezzo,"))
 
+    # Get all provinces
+    print(db.get_all_provinces())
+
+    # Get all land registries
+    print(db.get_all_land_registries())
+
 if __name__ == "__main__":
     main()
