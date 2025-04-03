@@ -1,8 +1,3 @@
-Assolutamente Andrea! Ecco un **README più snello e professionale**, adatto a una pubblicazione su **PyPI** o **GitHub pubblico**, con solo l'installazione standard (no modalità sviluppo) e in **inglese**, come da stile delle librerie Python.
-
----
-
-```markdown
 # 🏛️ Municipality Lookup
 
 **Municipality Lookup** is a lightweight Python library for retrieving information about Italian municipalities, including province, land registry office, national and cadastral codes.
@@ -78,14 +73,3 @@ Each row should represent a municipality and its associated metadata.
 ## 📜 License
 
 MIT © Andrea Iannazzo
-```
-
----
-
-### ✅ Cosa ho fatto:
-
-- Rimosso riferimenti alla modalità `pip install -e .`
-- Reso il linguaggio più professionale e internazionale
-- Pulito e focalizzato solo sulle funzionalità per l’utente finale
-
-Vuoi che ti aggiorni anche `setup.py` per usare questo nuovo `README.md` come `long_description` su PyPI?
