@@ -1,8 +1,8 @@
-from municipality_lookup import MunicipalityDB
+from municipality_lookup.instance import get_db
 
 def main():
-    db = MunicipalityDB("data/comuni.csv")
-
+    db = get_db()
+    
     print("🔍 Exact match:")
     print(db.get_by_name("ABANO TERME"))
 
