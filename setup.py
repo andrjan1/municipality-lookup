@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='municipality-lookup',
-    version='0.1.4',
+    version='0.1.5',
     author='Andrea Iannazzo',
     author_email='andrea.iannazzo@gmail.com',
     description='Fuzzy and exact lookup tool for Italian municipalities',
@@ -12,7 +12,7 @@ setup(
     packages=find_packages(),
     package_data={'municipality_lookup': ['data/comuni.csv']},
     include_package_data=True,
-    install_requires=['pandas'],
+    install_requires=['pandas','rapidfuzz'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
