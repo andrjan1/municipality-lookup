@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='municipality-lookup',
-    version='0.1.5',
+    version='0.1.6',
     author='Andrea Iannazzo',
     author_email='andrea.iannazzo@gmail.com',
     description='Fuzzy and exact lookup tool for Italian municipalities',

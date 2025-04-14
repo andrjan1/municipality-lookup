@@ -18,6 +18,10 @@ def main():
     print("\n🔍 Fuzzy match with typo:")
     print(db.get_by_name("Er- . bezzo,"))
 
+    print("\n🔍empty")
+    print(db.get_by_name("PONTE SAN GIOVANNI",min_score=0.8))
+
+
     # Get all provinces
     print(db.get_all_provinces())
 
