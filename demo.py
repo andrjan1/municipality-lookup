@@ -19,7 +19,7 @@ def main():
     print(db.get_by_name("Er- . bezzo,"))
 
     print("\n🔍empty")
-    print(db.get_by_name("PONTE SAN GIOVANNI",min_score=0.8))
+    print(db.get_by_name("P0Nt S GIOVAN"))
 
 
     # Get all provinces

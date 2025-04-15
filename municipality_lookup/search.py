@@ -1,14 +1,21 @@
-from rapidfuzz import fuzz
+from rapidfuzz import process, fuzz
 from typing import Optional
 from municipality_lookup.models import Municipality
 
 class MunicipalitySearcher:
     def __init__(self, municipalities: list[Municipality]):
         self._municipalities = municipalities
-        self._index = {m.name.lower(): m for m in municipalities}
+
+        # Dizionario diretto tra nome normalizzato e oggetto Municipality
+        self._name_to_municipality = {
+            m.name.lower(): m for m in municipalities
+        }
+
+        # Lista dei nomi su cui fare il fuzzy matching rapido
+        self._choices = list(self._name_to_municipality.keys())
 
     def find_exact(self, name: str) -> Optional[Municipality]:
-        return self._index.get(name.strip().lower())
+        return self._name_to_municipality.get(name.strip().lower())
 
     def find_similar(self, name: str, min_score: float = 0.8) -> Municipality:
         name = name.strip().lower()
@@ -23,5 +30,14 @@ class MunicipalitySearcher:
 
         if best_match:
             return best_match
+        else:
+            return Municipality(name='', province='', land_registry='', national_code='', cadastral_code='')
+
+    def find_similar_fast(self, name: str, min_score: float = 0.8) -> Municipality:
+        name = name.strip().lower()
+        result = process.extractOne(name, self._choices, score_cutoff=min_score * 100)
+        if result:
+            matched_name = result[0]
+            return self._name_to_municipality.get(matched_name)
         else:
             return Municipality(name='', province='', land_registry='', national_code='', cadastral_code='')

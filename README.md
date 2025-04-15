@@ -1,8 +1,8 @@
 # 🏛️ Municipality Lookup
 
-**Municipality Lookup** is a lightweight Python library for retrieving information about Italian municipalities, including province, land registry office, national and cadastral codes.
+**Municipality Lookup** is a lightweight Python library for retrieving information about Italian municipalities (comuni), including province, land registry office, national code, and cadastral code.
 
-It supports exact and fuzzy search (useful in OCR or typo-prone contexts) and is designed to be fast, cache-friendly and developer-friendly. The official dataset is embedded in the package and automatically loaded.
+It supports both exact and fuzzy search — ideal for OCR scenarios or user input with typos. The official dataset is embedded and loaded automatically.
 
 ---
 
@@ -16,56 +16,62 @@ pip install municipality-lookup
 
 ---
 
-## 🚀 Basic usage
+## 🚀 Getting Started
 
-Import and initialize the database instance using the built-in CSV:
+Import and initialize the database using the default embedded CSV:
 
 ```python
 from municipality_lookup.instance import get_db
 
-# Load the default embedded CSV
+# Load the built-in database
 db = get_db()
 ```
 
-### 🔍 Search for a municipality
+---
+
+## 🔍 Search for a Municipality
 
 ```python
 # Exact match (case-insensitive)
 result = db.get_by_name("ABANO TERME")
 print(result)
 # ➜ Municipality(name='ABANO TERME', province='PD', ...)
+```
 
-# Fuzzy match (handles typos or partial names)
+### ✨ Fuzzy search (handles typos or OCR noise)
+
+```python
+# Typo-tolerant search
 result = db.get_by_name("abno terme")
 print(result)
-# ➜ Fuzzy match result based on similarity score
 ```
 
-You can also customize the **minimum similarity score** (default is 0.8):
+You can customize the **minimum similarity score** (default is `0.8`) and choose between:
+- `fast=True` (default): faster search using RapidFuzz internals
+- `fast=False`: slower but more controllable logic with combined ratio + partial_ratio
 
 ```python
-result = db.get_by_name("abano trm", min_score=0.7)
+# Custom fuzzy search
+result = db.get_by_name("abano trm", min_score=0.7, fast=False)
 ```
 
 ---
 
-### 📋 Get unique values
+## 📋 Explore the Dataset
 
 ```python
-# List of all provinces
-provinces = db.get_all_provinces()
-print(sorted(provinces))
+# List all province codes
+print(sorted(db.get_all_provinces()))
 
-# List of all land registry offices
-registries = db.get_all_land_registries()
-print(sorted(registries))
+# List all land registry offices
+print(sorted(db.get_all_land_registries()))
 ```
 
 ---
 
-### 🔄 Update the internal database with a new CSV
+## 🔄 Update the Database with a Custom CSV
 
-If you have a newer or custom CSV with the same structure, you can load it:
+You can replace the internal dataset with a custom file (same structure as the built-in one):
 
 ```python
 db.update_database("path/to/your_custom_comuni.csv")
@@ -73,20 +79,17 @@ db.update_database("path/to/your_custom_comuni.csv")
 
 ---
 
-### 📄 CSV structure (for custom data)
+## 📄 CSV Structure
 
-If you want to update the internal database using your own CSV, the file must follow this exact structure:
+Custom CSVs must have the following columns (case-sensitive headers):
 
-| Column name                      | Description                            |
-|----------------------------------|----------------------------------------|
-| `Comune`                         | Municipality name (string)             |
-| `Provincia`                      | Province code (e.g., "PD")             |
-| `Conservatoria di Competenza`   | Land registry office (string)          |
-| `Codice Nazionale`              | National municipality code (4-char)    |
-| `Codice Catastale`              | Cadastral code (4-char)                |
-
-➡️ The file **must have headers exactly matching these column names** (case sensitive).  
-➡️ Missing or malformed rows may be ignored or cause load errors.
+| Column                          | Description                               |
+|---------------------------------|-------------------------------------------|
+| `Comune`                        | Municipality name (string)                |
+| `Provincia`                     | Province code (e.g. "PD")                 |
+| `Conservatoria di Competenza`  | Land registry office                      |
+| `Codice Nazionale`             | National municipality code (4 chars)      |
+| `Codice Catastale`             | Cadastral code (4 chars)                  |
 
 ✅ Example:
 
@@ -96,15 +99,25 @@ ABANO TERME,PD,Padova,A001,D3AB
 ABBADIA CERRETO,LO,Lodi,A004,C1AB
 ```
 
+➡️ Rows with missing or invalid fields may be ignored or raise errors.
+
 ---
 
-## 📄 Data source
+## 📚 Data Source
 
-The dataset used in this library is based on publicly available information provided by:
+The default dataset is based on publicly available information from:
 
-🔗 [https://www.visurasi.it/elenco-conservatorie-e-comuni](https://www.visurasi.it/elenco-conservatorie-e-comuni)
+🔗 [visurasi.it – Elenco conservatorie e comuni](https://www.visurasi.it/elenco-conservatorie-e-comuni)
 
-The data is embedded in the package and can be programmatically updated if needed.
+---
+
+## 🧠 Advanced
+
+You can use `find_exact()`, `find_similar()`, or `find_similar_fast()` directly if needed, via:
+
+```python
+from municipality_lookup.search import MunicipalitySearcher
+```
 
 ---
 
