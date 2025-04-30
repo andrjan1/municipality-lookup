@@ -2,6 +2,7 @@ import logging
 from .database import MunicipalityDatabase
 from .search import MunicipalitySearcher
 from .utils import normalize_name
+from typing import List
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -32,10 +33,10 @@ class MunicipalityDB:
             return self.searcher.find_similar(norm_name, score)
 
 
-    def get_all_provinces(self) -> list[str]:
+    def get_all_provinces(self) -> List[str]:
         return list(set(m.province for m in self.db.get_all()))
 
-    def get_all_land_registries(self) -> list[str]:
+    def get_all_land_registries(self) -> List[str]:
         return list(set(m.land_registry for m in self.db.get_all()))
 
     def update_database(self, new_csv_path: str):

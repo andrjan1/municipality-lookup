@@ -1,9 +1,10 @@
 from rapidfuzz import process, fuzz
 from typing import Optional
 from municipality_lookup.models import Municipality
+from typing import List
 
 class MunicipalitySearcher:
-    def __init__(self, municipalities: list[Municipality]):
+    def __init__(self, municipalities: List[Municipality]):
         self._municipalities = municipalities
 
         # Dizionario diretto tra nome normalizzato e oggetto Municipality

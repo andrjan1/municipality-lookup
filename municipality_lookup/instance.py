@@ -1,5 +1,4 @@
-import importlib.resources
-from importlib.resources import files
+from importlib_resources import files
 from municipality_lookup import MunicipalityDB
 
 _db_instance = None
